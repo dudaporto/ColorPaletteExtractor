@@ -1,0 +1,6 @@
+framework module Pods_ColorPaletteExtractor_ColorPaletteExtractorUITests {
+  umbrella header "Pods-ColorPaletteExtractor-ColorPaletteExtractorUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
