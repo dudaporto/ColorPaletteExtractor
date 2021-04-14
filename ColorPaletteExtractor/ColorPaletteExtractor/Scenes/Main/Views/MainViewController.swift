@@ -57,6 +57,14 @@ class MainViewController: UIViewController {
         print("See my palettes")
     }
     
+    //MARK: - Navigation
+    
+    private func showImageUploadViewController(image: UIImage) {
+        let imageUploadViewController = ImageUploadViewController(image: image)
+        imageUploadViewController.modalPresentationStyle = .overFullScreen
+        present(imageUploadViewController, animated: true)
+    }
+    
     //MARK: - Configuration
     
     private func configureViews() {
@@ -79,9 +87,14 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.isNavigationBarHidden = true
+        view.backgroundColor = .systemBackground
+        
         configureViews()
     }
 }
+
+//MARK: - UIImagePickerControllerDelegate
 
 extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(
@@ -92,7 +105,8 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
             return
         }
         
-      //  testImageView.image = seletedImage
-        dismiss(animated: true)
+        dismiss(animated: true) {
+            self.showImageUploadViewController(image: seletedImage)
+        }
     }
 }
