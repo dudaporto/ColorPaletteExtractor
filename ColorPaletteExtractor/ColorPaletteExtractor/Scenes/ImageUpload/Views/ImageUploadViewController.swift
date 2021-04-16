@@ -26,7 +26,6 @@ class ImageUploadViewController: UIViewController {
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleToFill
         imageView.cornerRadius = defaultCornerRadius
-        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -34,7 +33,6 @@ class ImageUploadViewController: UIViewController {
         let view = UIView()
         view.cornerRadius = defaultCornerRadius
         view.backgroundColor = .clear
-        view.clipsToBounds = false
         return view
     }()
     
@@ -100,15 +98,12 @@ class ImageUploadViewController: UIViewController {
     private func configureViews() {
         view.addSubview(contentView)
         contentView.addSubview(itemsStackView)
-        itemsStackView.addArrangedSubview(imageViewContainer)
-        itemsStackView.addArrangedSubview(titleLabel)
-        itemsStackView.addArrangedSubview(uploadProgressView)
-        itemsStackView.addArrangedSubview(progressLabel)
         imageViewContainer.addSubview(imageView)
+        itemsStackView.addArrangedSubviews(imageViewContainer, titleLabel, uploadProgressView, progressLabel)
         
         imageView.fitToParent()
-        itemsStackView.fitToParent(with: UIEdgeInsets(inset: defaultInset))
         imageViewContainer.setAspectRatio(1)
+        itemsStackView.fitToParent(with: UIEdgeInsets(inset: defaultInset))
         
         uploadProgressView.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
@@ -175,7 +170,7 @@ class ImageUploadViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        super.viewDidAppear(false)
         performCustomAppearingAnimation()
     }
 }

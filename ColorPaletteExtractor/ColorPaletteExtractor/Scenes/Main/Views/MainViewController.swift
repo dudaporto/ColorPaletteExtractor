@@ -69,8 +69,7 @@ class MainViewController: UIViewController {
     private func configureViews() {
         view.addSubview(buttonsStackView)
         
-        buttonsStackView.addArrangedSubview(extractPalletButton)
-        buttonsStackView.addArrangedSubview(myPalletsButton)
+        buttonsStackView.addArrangedSubviews(extractPalletButton, myPalletsButton)
         
         buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
