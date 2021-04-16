@@ -9,91 +9,136 @@ import UIKit
 
 class ImageUploadViewController: UIViewController {
     let image: UIImage
+    private let animationDuration: TimeInterval = 0.3
+    private let defaultCornerRadius: CGFloat = 10.0
     private let defaultInset: CGFloat = 20.0
-    
-    //MARK: - Circular progress view
-    
-    private lazy var circularPath: UIBezierPath = {
-        let circularPath = UIBezierPath(
-            arcCenter: view.center,
-            radius: 40.0,
-            startAngle: -.pi / 2,
-            endAngle: 2 * .pi, clockwise: true
-        )
-        return circularPath
-    }()
-    
-    private lazy var circularProgressBarLayer: CAShapeLayer = {
-        let circularLayer = CAShapeLayer()
-        circularLayer.path = circularPath.cgPath
-        circularLayer.strokeColor = UIColor.systemPurple.cgColor
-        circularLayer.fillColor = UIColor.clear.cgColor
-        circularLayer.lineWidth = 7
-        circularLayer.lineCap = .round
-        circularLayer.strokeEnd = 0
-        return circularLayer
-    }()
-    
-    private lazy var trackProgressBarLayer: CAShapeLayer = {
-        let circularLayer = CAShapeLayer()
-        circularLayer.path = circularPath.cgPath
-        circularLayer.strokeColor = UIColor.systemPurple.withAlphaComponent(0.5).cgColor
-        circularLayer.fillColor = UIColor.clear.cgColor
-        circularLayer.lineWidth = 7
-        circularLayer.strokeEnd = 1
-        return circularLayer
-    }()
     
     //MARK: - Views
     
-    private lazy var closeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "xmark"), for: [])
-        button.tintColor = .systemGray
-        button.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
-        return button
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        view.cornerRadius = defaultCornerRadius
+        return view
     }()
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleToFill
+        imageView.cornerRadius = defaultCornerRadius
         imageView.clipsToBounds = true
-        imageView.cornerRadius = 10
         return imageView
+    }()
+    
+    private lazy var imageViewContainer: UIView = {
+        let view = UIView()
+        view.cornerRadius = defaultCornerRadius
+        view.backgroundColor = .clear
+        view.clipsToBounds = false
+        return view
+    }()
+    
+    private lazy var progressLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        label.textAlignment = .center
+        label.text = "0%"
+        return label
+    }()
+    
+    private lazy var itemsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .equalSpacing
+        stackView.spacing = defaultInset
+        return stackView
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        label.textAlignment = .center
+        label.text = "Uploading image..."
+        return label
+    }()
+    
+    private lazy var uploadProgressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.progress = 0.5
+        progressView.progressTintColor = .systemPurple
+        progressView.trackTintColor = .systemGray3
+        
+        progressView.layer.sublayers?.forEach {
+            $0.cornerRadius = 5
+        }
+        
+        progressView.subviews.forEach {
+            $0.clipsToBounds = true
+        }
+        
+        return progressView
+    }()
+    
+    //MARK: - Constraints
+    
+    private lazy var contentViewCenterYConstraint: NSLayoutConstraint = {
+        let contraint = contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        return contraint
     }()
     
     //MARK: - Actions
     
-    @objc private func closeButtonClicked() {
-        dismiss(animated: true)
+    @objc private func rootViewTapped() {
+        performCustomDisappearingAnimation { _ in
+            self.dismiss(animated: false)
+        }
     }
     
     //MARK: - Configuration
     
     private func configureViews() {
-        view.addSubview(imageView)
-        view.addSubview(closeButton)
+        view.addSubview(contentView)
+        contentView.addSubview(itemsStackView)
+        itemsStackView.addArrangedSubview(imageViewContainer)
+        itemsStackView.addArrangedSubview(titleLabel)
+        itemsStackView.addArrangedSubview(uploadProgressView)
+        itemsStackView.addArrangedSubview(progressLabel)
+        imageViewContainer.addSubview(imageView)
         
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -defaultInset),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: defaultInset),
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            imageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7)
-        ])
+        imageView.fitToParent()
+        itemsStackView.fitToParent(with: UIEdgeInsets(inset: defaultInset))
+        imageViewContainer.setAspectRatio(1)
         
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        uploadProgressView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        let contentViewTopConstraint = contentView.topAnchor.constraint(equalTo: view.bottomAnchor)
+        contentViewTopConstraint.priority = .defaultLow
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            closeButton.widthAnchor.constraint(equalToConstant: 20.0),
-            closeButton.heightAnchor.constraint(equalToConstant: 20.0),
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -defaultInset),
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: defaultInset)
+            view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: defaultInset),
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: defaultInset),
+            contentViewTopConstraint
         ])
     }
     
-    private func configureUploadProgressLayers() {
-        view.layer.addSublayer(trackProgressBarLayer)
-        view.layer.addSublayer(circularProgressBarLayer)
+    private func performCustomAppearingAnimation() {
+        contentViewCenterYConstraint.isActive = true
+        
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    private func performCustomDisappearingAnimation(_ completion: @escaping ((Bool) -> Void)) {
+        contentViewCenterYConstraint.isActive = false
+        
+        UIView.animate(withDuration: animationDuration, animations: {
+            self.view.backgroundColor = .clear
+            self.view.layoutIfNeeded()
+        }, completion: completion)
     }
     
     //MARK: - Lifecycle
@@ -101,29 +146,36 @@ class ImageUploadViewController: UIViewController {
     init(image: UIImage) {
         self.image = image
         super.init(nibName: nil, bundle: nil)
+        
+        modalPresentationStyle = .overCurrentContext
     }
     
     required init?(coder: NSCoder) {
         fatalError("This should never be called")
     }
     
+    override func loadView() {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(rootViewTapped)))
+        self.view = view
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        imageViewContainer.dropSimpleBottomShadow()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .systemBackground
+    
+        navigationController?.isNavigationBarHidden = true
         
         configureViews()
-        configureUploadProgressLayers()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        imageView.alpha = 0.5
-//        for i in 0..<10 {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                self.circularProgressBarLayer.strokeEnd += 0.1
-//            })
-//        }
+        performCustomAppearingAnimation()
     }
 }

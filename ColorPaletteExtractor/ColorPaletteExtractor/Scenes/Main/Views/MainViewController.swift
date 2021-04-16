@@ -33,7 +33,7 @@ class MainViewController: UIViewController {
        let controller = UIImagePickerController()
         controller.delegate = self
         controller.sourceType = .photoLibrary
-        controller.allowsEditing = false
+        controller.allowsEditing = true
         return controller
     }()
     
@@ -61,8 +61,7 @@ class MainViewController: UIViewController {
     
     private func showImageUploadViewController(image: UIImage) {
         let imageUploadViewController = ImageUploadViewController(image: image)
-        imageUploadViewController.modalPresentationStyle = .overFullScreen
-        present(imageUploadViewController, animated: true)
+        present(imageUploadViewController, animated: false)
     }
     
     //MARK: - Configuration
@@ -101,7 +100,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
     ) {
-        guard let seletedImage = info[.originalImage] as? UIImage else {
+        guard let seletedImage = (info[.editedImage] ?? info[.originalImage]) as? UIImage else {
             return
         }
         
