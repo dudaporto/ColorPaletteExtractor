@@ -12,6 +12,7 @@
 		6B8F885426251C530048FD58 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8F885326251C530048FD58 /* UIView.swift */; };
 		6BC6DF352628FDE60023D6A5 /* UIEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6DF342628FDE60023D6A5 /* UIEdgeInsets.swift */; };
 		6BC6DF37262935500023D6A5 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6DF36262935500023D6A5 /* UIStackView.swift */; };
+		6BC6DF3A262936D60023D6A5 /* ExtractedPaletteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC6DF39262936D60023D6A5 /* ExtractedPaletteViewController.swift */; };
 		6BCB168C26267360008A7F37 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB168B26267360008A7F37 /* SceneDelegate.swift */; };
 		6BCB169026267FE9008A7F37 /* ImageUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB168F26267FE9008A7F37 /* ImageUploadViewController.swift */; };
 		6BDCBA5A262518610049D83E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BDCBA59262518610049D83E /* AppDelegate.swift */; };
@@ -47,6 +48,7 @@
 		6B8F885326251C530048FD58 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		6BC6DF342628FDE60023D6A5 /* UIEdgeInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsets.swift; sourceTree = "<group>"; };
 		6BC6DF36262935500023D6A5 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
+		6BC6DF39262936D60023D6A5 /* ExtractedPaletteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtractedPaletteViewController.swift; sourceTree = "<group>"; };
 		6BCB168B26267360008A7F37 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6BCB168F26267FE9008A7F37 /* ImageUploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadViewController.swift; sourceTree = "<group>"; };
 		6BDCBA56262518610049D83E /* ColorPaletteExtractor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorPaletteExtractor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +125,7 @@
 		6B8F8866262520250048FD58 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				6BC6DF38262936A70023D6A5 /* ExtractedPalette */,
 				6BCB168D26267EE1008A7F37 /* ImageUpload */,
 				6B8F886B2625239D0048FD58 /* Main */,
 			);
@@ -132,9 +135,17 @@
 		6B8F886B2625239D0048FD58 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				6BCB168926266F5F008A7F37 /* Views */,
+				6BDCBA5D262518610049D83E /* MainViewController.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		6BC6DF38262936A70023D6A5 /* ExtractedPalette */ = {
+			isa = PBXGroup;
+			children = (
+				6BC6DF39262936D60023D6A5 /* ExtractedPaletteViewController.swift */,
+			);
+			path = ExtractedPalette;
 			sourceTree = "<group>";
 		};
 		6BCB168826266B79008A7F37 /* Resources */ = {
@@ -146,28 +157,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		6BCB168926266F5F008A7F37 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				6BDCBA5D262518610049D83E /* MainViewController.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		6BCB168D26267EE1008A7F37 /* ImageUpload */ = {
-			isa = PBXGroup;
-			children = (
-				6BCB168E26267FD5008A7F37 /* Views */,
-			);
-			path = ImageUpload;
-			sourceTree = "<group>";
-		};
-		6BCB168E26267FD5008A7F37 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				6BCB168F26267FE9008A7F37 /* ImageUploadViewController.swift */,
 			);
-			path = Views;
+			path = ImageUpload;
 			sourceTree = "<group>";
 		};
 		6BDCBA4D262518610049D83E = {
@@ -474,6 +469,7 @@
 				6B8F885426251C530048FD58 /* UIView.swift in Sources */,
 				6BC6DF37262935500023D6A5 /* UIStackView.swift in Sources */,
 				6BC6DF352628FDE60023D6A5 /* UIEdgeInsets.swift in Sources */,
+				6BC6DF3A262936D60023D6A5 /* ExtractedPaletteViewController.swift in Sources */,
 				6BCB169026267FE9008A7F37 /* ImageUploadViewController.swift in Sources */,
 				6BDCBA5A262518610049D83E /* AppDelegate.swift in Sources */,
 				6BCB168C26267360008A7F37 /* SceneDelegate.swift in Sources */,

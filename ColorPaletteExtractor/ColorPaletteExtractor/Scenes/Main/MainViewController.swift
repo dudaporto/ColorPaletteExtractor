@@ -104,7 +104,8 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         }
         
         dismiss(animated: true) {
-            self.showImageUploadViewController(image: seletedImage)
+            let vcTest = ExtractedPaletteViewController(image: seletedImage)
+            self.navigationController?.pushViewController(vcTest, animated: true)
         }
     }
 }

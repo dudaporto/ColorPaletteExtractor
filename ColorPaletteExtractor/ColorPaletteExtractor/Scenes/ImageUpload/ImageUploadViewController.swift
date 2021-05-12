@@ -9,7 +9,7 @@ import UIKit
 
 class ImageUploadViewController: UIViewController {
     let image: UIImage
-    private let animationDuration: TimeInterval = 0.3
+    private let animationDuration: TimeInterval = 0.4
     private let defaultCornerRadius: CGFloat = 10.0
     private let defaultInset: CGFloat = 20.0
     
