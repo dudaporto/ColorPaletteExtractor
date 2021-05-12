@@ -89,6 +89,9 @@ class MainViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         configureViews()
+        
+        print("KEY: \(ImaggaApiCredentials.key)")
+        print("SECRET: \(ImaggaApiCredentials.secret)")
     }
 }
 
