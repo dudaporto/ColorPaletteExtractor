@@ -29,7 +29,7 @@ class ExtractedPaletteViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .red
+        tableView.backgroundColor = .green
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         return tableView
@@ -62,7 +62,7 @@ class ExtractedPaletteViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -89,10 +89,14 @@ class ExtractedPaletteViewController: UIViewController {
         
         configureNavigationBar()
         configureViews()
+<<<<<<< HEAD
+        // meu comentario
+=======
         myNewFunction()
     }
     
     private func myNewFunction() {
         print("AAAAA")
+>>>>>>> e2f6ecb2e67e15907853bcc14a1733e6e1fa78b3
     }
 }
