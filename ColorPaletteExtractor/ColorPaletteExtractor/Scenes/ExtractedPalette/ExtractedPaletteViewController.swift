@@ -89,5 +89,10 @@ class ExtractedPaletteViewController: UIViewController {
         
         configureNavigationBar()
         configureViews()
+        myNewFunction()
+    }
+    
+    private func myNewFunction() {
+        print("AAAAA")
     }
 }
