@@ -29,7 +29,7 @@ class ExtractedPaletteViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .red
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         return tableView
@@ -89,5 +89,10 @@ class ExtractedPaletteViewController: UIViewController {
         
         configureNavigationBar()
         configureViews()
+        myNewFunction()
+    }
+    
+    private func myNewFunction() {
+        print("AAAAA")
     }
 }
